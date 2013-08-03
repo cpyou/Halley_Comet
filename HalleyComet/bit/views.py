@@ -79,7 +79,8 @@ def index(req):
     return render(req, 'index.html', {'lu': lu, 'user': req.user, 'user_data': user_data})
 
 def turn(req, short_hash):
-    full_long_url = short_to_long(short_hash)
+    short_url = "localhost/%s" + short_hash
+    full_long_url = short_to_long(short_url)
     return HttpResponseRedirect(full_long_url)
 
 

@@ -27,7 +27,7 @@ def long_to_short(long_url):
     
         while len(short_url) < 6:
             short_url = "a" + short_url
-    
+        short_url = "localhost/" + short_url 
         db_url.update(short_url=short_url)
     return short_url
 

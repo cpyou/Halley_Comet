@@ -3,7 +3,7 @@ $(function(){
 		    var clip = new ZeroClipboard.Client();
 			    
 		    clip.setHandCursor( true ); 
-			clip.glue('J_copy_clipboard_data');
+			clip.glue('copy');
 
 	        clip.addEventListener('mouseDown', function (){
 			clip.setText($('#short_url').val());
