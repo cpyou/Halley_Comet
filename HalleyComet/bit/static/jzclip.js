@@ -6,7 +6,7 @@ $(function(){
 			clip.glue('J_copy_clipboard_data');
 
 	        clip.addEventListener('mouseDown', function (){
-			clip.setText($('#js_get_short_url').html());
+			clip.setText($('#short_url').val());
 				 });
 
 			clip.addEventListener("complete", function (){

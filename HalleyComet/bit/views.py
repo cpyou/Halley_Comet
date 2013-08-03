@@ -8,7 +8,7 @@ from bit.def_url import short_to_long, long_to_short
 from django.contrib.auth.models import User
 
 class UrlForm(forms.Form):
-    long_url = forms.CharField(max_length=200)
+    long_url = forms.CharField(max_length=200, label="")
 
 class UserRegistForm(forms.ModelForm):
     class Meta:

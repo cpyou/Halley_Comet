@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% block title %}
+        <title>HalleyComet</title>
+        {% endblock %}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Bootstrap -->
+        <link href="/static/bootstrap/bootstrap.min.css" rel="stylesheet" media="screen">
+        <style>
+            {% block style%}
+            {% endblock %}
+        </style>
+    </head>
+
+    <body>
+        <br />
+
+        {% block login %}
+        <div class="row-fluid">
+            <div class="span2 offset1"> <img src="/static/t.jpg"> </div >
+            <div class="span2 "><h4>HalleyComet</h4></div> 
+            <div class="span3 offset3"> 
+                {% if user.username %}
+                    <div class="row-fluid">
+                        <div class="span1">{{user.username}}</div> 
+                        <div class="span1 offset1"><a href="/userlogout/">logout</a></div>
+                    </div>
+                {% else %}
+                    <a href="/userregist/">注册</a>
+                    <a href="/login/">登录</a>
+                {% endif %}
+            </div >
+        </div><br />
+        {% endblock %}
+
+        {% block long_url%}
+        <div class="row-fluid">
+            <form method="post">
+                {% csrf_token %}
+                <div class="span3 offset1">{{lu.as_p}}</div >
+                <div class="span1 "><input type="submit" value="shorten_url"/></div >
+            </form>
+        </div>
+        {% endblock %}
+
+        {% block short_url%}
+        <div class="row-fluid">
+            <form method="post">
+            {% csrf_token %}
+            <div class="span3 offset1"><input type="text" id="short_url"></div >
+            <div class="span1 "><input type="button" value="copy"></div >
+            </form>
+        </div><br />
+        {% endblock %}
+
+        {% block urls %}
+        <div class="row-fluid">
+            <div class="spand1 offset1">
+                <h4>历史记录:</h4> 
+            </div><br />
+            {% for data in user_data %}
+                <div class="span4 offset1"> {{data.long_url}} </div >
+                <div class="span4 offset1"> {{data.short_url}} </div >
+            {% endfor %}
+        </div><br />
+        {% endblock %}
+
+        {% block share%}
+        <div class="row-fluid">
+            <div class="spand4 offset1">
+            <!-- JiaThis Button BEGIN -->
+            <div class="jiathis_share_slide jiathis_share_24x24" id="jiathis_share_slide">
+            <div class="jiathis_share_slide_top" id="jiathis_share_title"></div>
+            <div class="jiathis_share_slide_inner">
+            <div class="jiathis_style_24x24">
+            <a class="jiathis_button_qzone"></a>
+            <a class="jiathis_button_tsina"></a>
+            <a class="jiathis_button_tqq"></a>
+            <a class="jiathis_button_weixin"></a>
+            <a class="jiathis_button_renren"></a>
+            <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+            <script type="text/javascript">
+                var jiathis_config = {
+                    slide:{
+                        divid:'jiathis_main',
+                        pos:'right'
+                    };
+                };
+            </script>
+            <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>    
+            <script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_slide.js" charset="utf-8"></script>
+            </div></div></div>
+            <!-- JiaThis Button END -->
+            </div>
+        </div>
+        {% endblock%}
+
+        {% block js %}
+        <script src="/static/ZeroClipboard.js"></script>
+        <script src="/static/jquery.min.js"></script>
+        <script src="/static/bootstrap/bootstrap.min.js"></script>
+        <script src="/static/jzclip.js"></script>
+        {% endblock%}
+
+        {% block url%}
+        <script>
+            short_url = document.getElementById("short_url");
+            short_url.value = "{{short_url}}";
+        </script>
+        {% endblock %}
+
+        {% block content %}
+        {% endblock %} 
+    </body>
+</html>
