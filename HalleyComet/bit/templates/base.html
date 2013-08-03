@@ -61,7 +61,7 @@
             </div><br />
             {% for data in user_data %}
                 <div class="span4 offset1"> {{data.long_url}} </div >
-                <div class="span4 offset1"> {{data.short_url}} </div >
+                <div class="span4 offset1"> localhost/{{data.short_url}} </div >
             {% endfor %}
         </div><br />
         {% endblock %}
@@ -106,7 +106,7 @@
         {% block url%}
         <script>
             short_url = document.getElementById("short_url");
-            short_url.value = "{{short_url}}";
+            short_url.value = "localhost/" + "{{short_url}}";
         </script>
         {% endblock %}
 
