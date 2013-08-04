@@ -18,5 +18,5 @@ urlpatterns = patterns('',
     url(r'userregist/$', 'bit.views.user_regist'),
     url(r'login/$', 'bit.views.user_login'),
     url(r'userlogout/$', 'bit.views.user_logout'),
-    url(r"^(\w{6})/$", "bit.views.turn"),
+    url(r"^(\w{8})/$", "bit.views.turn"),
 )
