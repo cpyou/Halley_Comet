@@ -5,7 +5,6 @@ import hashlib
 def long_to_short(long_url):
     if long_url[:4] != "http":
         long_url = "http://" + long_url
-
     db_url = Url.objects.filter(long_url__exact=long_url)
     if db_url:
         short_url = db_url[0].short_url
