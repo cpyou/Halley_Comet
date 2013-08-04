@@ -9,6 +9,7 @@
         <link href="/static/bootstrap/bootstrap.min.css" rel="stylesheet" media="screen">
         <style>
             {% block style%}
+            body {background:url(/static/bomo.jpg)}
             {% endblock %}
         </style>
     </head>
@@ -17,21 +18,23 @@
         <br />
 
         {% block login %}
-        <div class="row-fluid">
-            <div class="span2 offset1"> <img src="/static/t.jpg"> </div >
-            <div class="span2 "><h4>HalleyComet</h4></div> 
-            <div class="span3 offset3"> 
+        <div class="row-fluid" >
+            <div class="span12 offset1">
+                <ul class="inline">
+                <li><img src="/static/t.jpg" width="55px" height="50px"></li>
+                <li><h4>HalleyComet</h4></li>  
                 {% if user.username %}
-                    <div class="row-fluid">
-                        <div class="span1">{{user.username}}</div> 
-                        <div class="span1 offset1"><a href="/userlogout/">logout</a></div>
+                    <li>{{user.username}}</li> 
+                        <li><a href="/userlogout/">logout</a></li>
                     </div>
                 {% else %}
-                    <a href="/userregist/">注册</a>
-                    <a href="/login/">登录</a>
+                <li><h4><a href="/userregist/">注册</a></h4></li>
+                <li><h4><a href="/login/">登录</a></h4></li>
                 {% endif %}
-            </div >
-        </div><br />
+                </div>
+            </div>
+        </div>
+        <br />
         {% endblock %}
 
         {% block long_url%}
@@ -39,7 +42,7 @@
             <form method="post">
                 {% csrf_token %}
                 <div class="span3 offset1">{{lu.as_p}}</div >
-                <div class="span1 "><input type="submit" value="缩短" tabindex="1"/></div >
+                <div class="span1 "><input type="submit" value="缩短" class="btn btn-success"/></div >
             </form>
         </div>
         {% endblock %}
@@ -49,7 +52,7 @@
             <form method="post">
             {% csrf_token %}
             <div class="span3 offset1"><input type="text" id="short_url"></div >
-            <div class="span1 "><input type="button" value="复制" id="copy"></div >
+            <div class="span1 "><input type="button" value="复制" id="copy"  class="btn btn-success"></div >
             </form>
         </div><br />
         {% endblock %}
