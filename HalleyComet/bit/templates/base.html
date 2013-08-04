@@ -39,7 +39,7 @@
             <form method="post">
                 {% csrf_token %}
                 <div class="span3 offset1">{{lu.as_p}}</div >
-                <div class="span1 "><input type="submit" value="shorten_url"/></div >
+                <div class="span1 "><input type="submit" value="缩短" tabindex="1"/></div >
             </form>
         </div>
         {% endblock %}
@@ -49,7 +49,7 @@
             <form method="post">
             {% csrf_token %}
             <div class="span3 offset1"><input type="text" id="short_url"></div >
-            <div class="span1 "><input type="button" value="copy" id="copy"></div >
+            <div class="span1 "><input type="button" value="复制" id="copy"></div >
             </form>
         </div><br />
         {% endblock %}
@@ -61,53 +61,45 @@
             </div><br />
             {% for data in user_data %}
                 <div class="span4 offset1"> {{data.long_url}} </div >
-                <div class="span4 offset1"> localhost/{{data.short_url}} </div >
+                <div class="span4 offset1"> www.hc.cn/{{data.short_url}} </div >
             {% endfor %}
         </div><br />
         {% endblock %}
 
         {% block share%}
-        <div class="row-fluid">
-            <div class="spand4 offset1">
-            <!-- JiaThis Button BEGIN -->
-            <div class="jiathis_share_slide jiathis_share_24x24" id="jiathis_share_slide">
-            <div class="jiathis_share_slide_top" id="jiathis_share_title"></div>
-            <div class="jiathis_share_slide_inner">
-            <div class="jiathis_style_24x24">
-            <a class="jiathis_button_qzone"></a>
-            <a class="jiathis_button_tsina"></a>
-            <a class="jiathis_button_tqq"></a>
-            <a class="jiathis_button_weixin"></a>
-            <a class="jiathis_button_renren"></a>
-            <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
-            <script type="text/javascript">
-                var jiathis_config = {
-                    slide:{
-                        divid:'jiathis_main',
-                        pos:'right'
-                    };
-                };
-            </script>
-            <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>    
-            <script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_slide.js" charset="utf-8"></script>
-            </div></div></div>
-            <!-- JiaThis Button END -->
-            </div>
+        <!-- JiaThis Button BEGIN -->
+        <script "text/javascript"> 
+        short_url = "{{short_url}}"
+        var jiathis_config = { 
+            url: "http://www.hc.cn/" + "{{short_url}}",
+            title: "http://www.hc.cn/" + "{{short_url}}",
+            summary: "",
+        } 
+        </script> 
+
+        <div class="jiathis_style">
+            <span class="jiathis_txt">分享到：</span>
+            <a class="jiathis_button_qzone">QQ空间</a>
+            <a class="jiathis_button_tsina">新浪微博</a>
+            <a class="jiathis_button_douban">豆瓣</a>
+            <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+            <a class="jiathis_counter_style"></a>
         </div>
+        <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+        <!-- JiaThis Button END -->
         {% endblock%}
 
         {% block js %}
         <script src="/static/ZeroClipboard.js"></script>
         <script src="/static/jquery.min.js"></script>
         <script src="/static/bootstrap/bootstrap.min.js"></script>
-        <script src="/static/jzclip.js"></script>
-        {% endblock%}
+        {% endblock %}
 
         {% block url%}
         <script>
             if ("{{short_url}}" != ""){ 
                 short_url = document.getElementById("short_url");
-                short_url.value = "localhost/" + "{{short_url}}";
+                short_url.value = "www.hc.cn/" + "{{short_url}}";
             }    
         </script>
         {% endblock %}
