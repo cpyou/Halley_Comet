@@ -63,8 +63,10 @@
                 <h4>历史记录:</h4> 
             </div><br />
             {% for data in user_data %}
+                <div class="row-fluid">
                 <div class="span4 offset1"> {{data.long_url}} </div >
                 <div class="span4 offset1"> www.hc.cn/{{data.short_url}} </div >
+                </div><br />
             {% endfor %}
         </div><br />
         {% endblock %}

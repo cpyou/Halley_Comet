@@ -45,7 +45,7 @@ def user_login(req):
             user = authenticate(username=username, password=password)
             if user:
                 login(req, user)
-                return HttpResponseRedirect('/index/')
+                return HttpResponseRedirect('/')
             else :
                 return HttpResponseRedirect('/login/')
     else :
@@ -54,7 +54,7 @@ def user_login(req):
 
 def user_logout(req):
     logout(req)
-    return HttpResponseRedirect('/index/')
+    return HttpResponseRedirect('/')
 
 def index(req):
     user_data = Url.objects.all()
