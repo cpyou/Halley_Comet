@@ -9,5 +9,5 @@ install:
  - pip install -r pip-req.txt --use-mirrors
 
 script:
- - python ./HalleyComet/manage.py test 
+ - python ./HalleyComet/manage.py test bit
 
