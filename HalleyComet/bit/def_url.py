@@ -1,19 +1,23 @@
 #-*-coding:utf8-*-
 from bit.models import Url
 import hashlib
+import urlparse
 
 def long_to_short(long_url):
-    if long_url[:4] != "http":
-        long_url = "http://" + long_url
+    short_url = ''
+    urlparsed = urlparse.urlparse(long_url)
+    if urlparsed.scheme == '':
+        long_url = 'http://' + long_url
     if long_url[-1] != "/":
         long_url = long_url + "/"
 
-    db_url = Url.objects.filter(long_url__exact=long_url)
-    if db_url:
-        short_url = db_url[0].short_url
-    else:
-        short_url = hashlib.sha1(long_url).hexdigest()[:8]
-        Url.objects.create(long_url=long_url, short_url=short_url)
+    if urlparsed.scheme in ('http', 'https', ''):
+        db_url = Url.objects.filter(long_url__exact=long_url)
+        if db_url:
+            short_url = db_url[0].short_url
+        else:
+            short_url = hashlib.sha1(long_url).hexdigest()[:8]
+            Url.objects.create(long_url=long_url, short_url=short_url)
     return short_url
 
 def short_to_long(short_url):
