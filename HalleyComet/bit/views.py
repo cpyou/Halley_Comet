@@ -1,26 +1,10 @@
 #-*-coding:utf8-*-
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-from django import forms
 from bit.models import Url
 from django.contrib.auth import authenticate, login, logout
 from bit.def_url import short_to_long, long_to_short
-from django.contrib.auth.models import User
-
-class UrlForm(forms.Form):
-    long_url = forms.CharField(max_length=200, label="")
-
-class UserRegistForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ['username', 'password']
-        widgets = {
-            'password': forms.PasswordInput()
-        }
-
-class UserLoginForm(forms.Form):
-    username = forms.CharField(max_length=30)
-    password = forms.CharField(widget=forms.PasswordInput)
+from bit.form import *
 
 def user_regist(req):
     if req.method == "POST":
