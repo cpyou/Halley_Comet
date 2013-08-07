@@ -3,7 +3,7 @@ from django import forms
 from django.contrib.auth.models import User
 
 class UrlForm(forms.Form):
-    long_url = forms.CharField(max_length=200, label="")
+    long_url = forms.CharField(max_length=200, label="", error_messages={'required': '链接地址不能为空'})
 
 class UserRegistForm(forms.ModelForm):
     username = forms.CharField(max_length=30, label='用户名', error_messages={'required': '用户名不能为空！'})
