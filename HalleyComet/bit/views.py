@@ -5,6 +5,7 @@ from bit.models import Url
 from django.contrib.auth import authenticate, login, logout
 from bit.def_url import short_to_long, long_to_short
 from bit.form import *
+from bit.def_disp_data import disp_data
 
 def user_regist(req):
     if req.method == "POST":
@@ -41,16 +42,18 @@ def user_logout(req):
     return HttpResponseRedirect('/')
 
 def index(req):
-    user_data = Url.objects.all()
+    user_data = disp_data()
     if req.method == "POST":
         lu = UrlForm(req.POST)
         if lu.is_valid():
             long_url = lu.cleaned_data["long_url"]
             short_url = long_to_short(long_url)
+            user_data = disp_data()
             if req.user.is_authenticated():
                 username = req.user.username
                 user = User.objects.get(username=username)
                 user_data = user.url_set.all()
+                user_data = user_data[::-1]
                 short_url_ = Url.objects.get(short_url=short_url)
                 user.url_set.add(short_url_)
             return render(req, 'index.html', {'lu': lu, 'user': req.user, 'short_url': short_url, 'long_url': long_url, 'user_data': user_data})
@@ -60,6 +63,7 @@ def index(req):
             username = req.user.username
             user = User.objects.get(username=username)
             user_data = user.url_set.all()
+            user_data = user_data[::-1]
     return render(req, 'index.html', {'lu': lu, 'user': req.user, 'user_data': user_data})
 
 def turn(req, short_hash):
