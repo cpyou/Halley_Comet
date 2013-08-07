@@ -5,72 +5,88 @@
         <title>HalleyComet</title>
         {% endblock %}
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- Bootstrap -->
-        <link href="/static/bootstrap/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link href="/static/bootstrap/bootstrap.min.css" rel="stylesheet" media="screen"><!--Bootstrap-->
         {% block style%}
         <style>
-            body {background:url(/static/bomo.jpg)}
+            body {
+                padding-top: 20px;
+                padding-bottom:40px;
+                background: url(/static/bomo.jpg)
+            }
+            .container-narrow {
+                margin: 0 auto;
+                max-width: 700px;
+            }
+            .container-narrow > hr {
+                margin: 30px 0;
+            }
+            .marketing {
+                margin:60px 0;
+            }
         </style>
         {% endblock %}
     </head>
-
     <body>
-        <br />
-
         {% block login %}
-        <div class="row-fluid" >
-            <div class="span12 offset1">
-                <ul class="inline">
-                <li><img src="/static/t.jpg" width="55px" height="50px"></li>
-                <li><h4>HalleyComet</h4></li>  
-                {% if user.username %}
-                    <li>{{user.username}}</li> 
-                        <li><a href="/userlogout/">logout</a></li>
-                    </div>
-                {% else %}
-                <li><h4><a href="/userregist/">注册</a></h4></li>
-                <li><h4><a href="/login/">登录</a></h4></li>
-                {% endif %}
-                </div>
+        <div class="container-narrow">
+
+            <div class="masthead">
+                <ul class="nav nav-pills pull-right">
+                    {% if user.username %}
+                    <li>
+                        <h5>欢迎您，亲爱的{{user.username}}</h5>
+                    </li> 
+                    <li>
+                        <a href="/userlogout/">注销</a>
+                    </li>
+                    {% else %}
+                    <li>
+                         <a href="/userregist/">注册</a>
+                    </li>
+                    <li>
+                        <a href="/login/">登录</a>
+                    </li>
+                    {% endif %}
+                </ul>   
+                <img class="muted" src="/static/t.jpg" width="55px" height="50px"><a>HalleyComet</a> 
             </div>
-        </div>
-        <br />
+        <hr />
         {% endblock %}
 
         {% block long_url%}
         <div class="row-fluid">
-            <form method="post">
+            <form method="post" class="form-inline">
                 {% csrf_token %}
-                <div class="span3 offset1">{{lu.as_p}}</div >
-                <div class="span1 "><input type="submit" value="缩短" class="btn btn-success"/></div >
+                <div class="span3 offset3">{{lu.as_p}}</div >
+                <div class="span2 offset1"><input type="submit" value="缩短" class="btn btn-success" /></div >
             </form>
         </div>
         {% endblock %}
-
         {% block short_url%}
         <div class="row-fluid">
-            <form method="post">
+            <form method="post" class="form-inline">
             {% csrf_token %}
-            <div class="span3 offset1"><input type="text" id="short_url"></div >
-            <div class="span1 "><input type="button" value="复制" id="copy"  class="btn btn-success"></div >
+            <div class="span3 offset3"><input type="text" id="short_url"></div >
+            <div class="span2 offset1"><input type="button" value="复制" id="copy"  class="btn btn-success"></div >
             </form>
         </div><br />
         {% endblock %}
 
         {% block urls %}
-        <div class="row-fluid">
-            <div class="spand1 offset1">
-                <h4>历史记录:</h4> 
-            </div><br />
+        <div class="row-fluid marketing">
+            <h3>历史记录:</h3> 
             {% for data in user_data %}
-                <div class="row-fluid">
-                <div class="span4 offset1"> {{data.long_url}} </div >
-                <div class="span4 offset1"> www.hc.cn/{{data.short_url}} </div >
-                </div><br />
+            <div class="span6">
+                {{data.long_url}}
+            </div>
+            <div class="span5">
+                www.HC.cn/{{data.short_url}}
+            </div>
             {% endfor %}
-        </div><br />
+        </div>
+        <hr />
         {% endblock %}
-
+        
         {% block share%}
         <!-- JiaThis Button BEGIN -->
         <script "text/javascript"> 
@@ -90,6 +106,7 @@
             <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
             <a class="jiathis_counter_style"></a>
         </div>
+        </div><!--container-->
         <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
         <!-- JiaThis Button END -->
         {% endblock%}
@@ -109,7 +126,6 @@
             }    
         </script>
         {% endblock %}
-
         {% block content %}
         {% endblock %} 
     </body>
