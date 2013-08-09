@@ -76,11 +76,13 @@
         <div class="row-fluid marketing">
             <h3>历史记录:</h3> 
             {% for data in user_data %}
-            <div class="span6">
-                {{data.long_url}}
-            </div>
-            <div class="span5">
-                www.HC.cn/{{data.short_url}}
+            <div class="row-fluid">
+                <div class="span8">
+                    {{data.long_url}}
+                </div>
+                <div class="span4">
+                     www.HC.cn/{{data.short_url}}
+                </div>
             </div>
             {% endfor %}
         </div>
