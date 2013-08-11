@@ -13,9 +13,20 @@ from django.test.client import Client
 class Web_Test(unittest.TestCase):
     def setUp(self):
         self.client = Client()
+        Url.objects.create(long_url="http://www.baidu.com", short_url="aaaaaaab")
+        Url.objects.create(long_url="http://www.google.com", short_url="aaaaaaac")
 
     def test_index(self):
-        response = self.client.get("/")
+        response = self.client.post("/", {"long_url": "http://www.sina.com"})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context['user_data']), 3)
+        self.assertEqual(len(response.context['short_url']), 8)
+
+    def test_login(self):
+        self.client.login(username="liu", password="1")
+        
+    def test_regist(self):
+        response = self.client.post('/userregist/')
         self.assertEqual(response.status_code, 200)
     
 class Url_Test(TestCase):            
@@ -44,11 +55,14 @@ class Url_Test(TestCase):
         long_url1 = "http://tieba.baidu.com"
         long_url2 = "tieba.baidu.com"    
         long_url3 = "http://tieba.baidu.com/"
+        long_url4 = "file:///root/Desktop/web"
+        long_url5 = "192.168.1.104:8000/"
         self.assertEqual(long_to_short(long_url), "a06194a3")
         self.assertEqual(long_to_short(long_url1), "a06194a3")
         self.assertEqual(long_to_short(long_url2), "a06194a3")
         self.assertEqual(long_to_short(long_url3), "a06194a3")
-
+        self.assertEqual(long_to_short(long_url4), "")
+        self.assertEqual(long_to_short(long_url5), "")
 
     def test_short_to_long(self):
         short_url = "aaaaaaab"
