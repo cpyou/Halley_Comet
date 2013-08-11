@@ -4,7 +4,7 @@ from bit.models import Url
 from django.contrib.auth import authenticate, login, logout
 from bit.def_url import short_to_long, long_to_short
 from bit.form import UserRegistForm, UserLoginForm, User
-from bit.def_disp_data import disp_data
+from bit.def_disp_data import disp_five_data
 
 def user_regist(req):
     if req.method == "POST":
@@ -41,11 +41,11 @@ def user_logout(req):
     return redirect('/')
 
 def index(req):
-    user_data = disp_data()
+    user_data = disp_five_data()
     if req.method == "POST":
         long_url = req.POST.get('long_url')
         short_url = long_to_short(long_url)
-        user_data = disp_data()
+        user_data = disp_five_data()
         if req.user.is_authenticated():
             username = req.user.username
             user = User.objects.get(username=username)
