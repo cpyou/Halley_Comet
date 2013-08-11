@@ -44,25 +44,22 @@ def user_logout(req):
 def index(req):
     user_data = disp_data()
     if req.method == "POST":
-        lu = UrlForm(req.POST)
-        if lu.is_valid():
-            long_url = lu.cleaned_data["long_url"]
-            short_url = long_to_short(long_url)
-            user_data = disp_data()
-            if req.user.is_authenticated():
-                username = req.user.username
-                user = User.objects.get(username=username)
-                user_data = user.url_set.all().order_by('-visit_time')
-                short_url_ = Url.objects.get(short_url=short_url)
-                user.url_set.add(short_url_)
-            return render(req, 'index.html', {'lu': lu, 'user': req.user, 'short_url': short_url, 'long_url': long_url, 'user_data': user_data})
-    else:
-        lu = UrlForm()
+        long_url = req.POST.get('long_url')
+        short_url = long_to_short(long_url)
+        user_data = disp_data()
         if req.user.is_authenticated():
             username = req.user.username
             user = User.objects.get(username=username)
             user_data = user.url_set.all().order_by('-visit_time')
-    return render(req, 'index.html', {'lu': lu, 'user': req.user, 'user_data': user_data})
+            short_url_ = Url.objects.get(short_url=short_url)
+            user.url_set.add(short_url_)
+        return render(req, 'index.html', {'user': req.user, 'short_url': short_url, 'long_url': long_url, 'user_data': user_data})
+    else:
+        if req.user.is_authenticated():
+            username = req.user.username
+            user = User.objects.get(username=username)
+            user_data = user.url_set.all().order_by('-visit_time')
+    return render(req, 'index.html', {'user': req.user, 'user_data': user_data})
 
 def turn(req, short_hash):
     full_long_url = short_to_long(short_hash)

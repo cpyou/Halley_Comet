@@ -11,7 +11,6 @@
             body {
                 padding-top: 20px;
                 padding-bottom:40px;
-                background: url(/static/bomo.jpg)
             }
             .container-narrow {
                 margin: 0 auto;
@@ -21,6 +20,9 @@
                 margin: 30px 0;
             }
             .marketing {
+                margin:60px 0;
+            }
+            .form-inline {
                 margin:60px 0;
             }
         </style>
@@ -47,18 +49,22 @@
                         <a href="/login/">登录</a>
                     </li>
                     {% endif %}
-                </ul>   
-                <img class="muted" src="/static/t.jpg" width="55px" height="50px"><a>HalleyComet</a> 
+                </ul>  
+                <img class="muted" src="/static/t.jpg" width="60px" height="10px"><em><b>HalleyComet网址缩短服务</b></em>
             </div>
-        <hr />
+        <br />
         {% endblock %}
 
         {% block long_url%}
         <div class="row-fluid">
             <form method="post" class="form-inline">
                 {% csrf_token %}
-                <div class="span3 offset3">{{lu.as_p}}</div >
-                <div class="span2 offset1"><input type="submit" value="缩短" class="btn btn-success" /></div >
+                <div class="span2 offset3">
+                    <input class="input-xlarge"  name="long_url" type="text" id="long_url" placeholder="请输入您需要缩短的地址">
+                </div>
+                <div class="span2 offset3">
+                    <input type="submit" value="缩短" class="btn btn-primary">
+                </div>
             </form>
         </div>
         {% endblock %}
@@ -66,15 +72,19 @@
         <div class="row-fluid">
             <form method="post" class="form-inline">
             {% csrf_token %}
-            <div class="span3 offset3"><input type="text" id="short_url"></div >
-            <div class="span2 offset1"><input type="button" value="复制" id="copy"  class="btn btn-success"></div >
+                <div class="span2 offset3">
+                    <input type="text" class="input-xlarge" id="short_url">
+                </div>
+                <div class="span2 offset3">
+                    <input type="button" value="复制" id="copy"  class="btn btn-primary">
+                </div >
             </form>
         </div><br />
         {% endblock %}
 
         {% block urls %}
         <div class="row-fluid marketing">
-            <h3>历史记录:</h3> 
+            <h4>历史记录:</h4> 
             {% for data in user_data %}
             <div class="row-fluid">
                 <div class="span8">
