@@ -88,10 +88,10 @@
             {% for data in user_data %}
             <div class="row-fluid">
                 <div class="span8">
-                    {{data.long_url}}
+                    <a href="{{data.long_url}}">{{data.long_url}}</a>
                 </div>
                 <div class="span4">
-                     www.HC.cn/{{data.short_url}}
+                     <a href="/{{data.short_url}}"> www.HC.cn/{{data.short_url}}</a>
                 </div>
             </div>
             {% endfor %}
