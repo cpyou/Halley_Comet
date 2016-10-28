@@ -1,10 +1,15 @@
-#-*-coding:utf8-*-
+# -*-coding:utf8-*-
+# from django.shortcuts import render
+
+# Create your views here.
+
 from django.shortcuts import render, redirect
 from bit.models import Url
 from django.contrib.auth import authenticate, login, logout
 from bit.def_url import short_to_long, long_to_short
 from bit.form import UserRegistForm, UserLoginForm, User
 from bit.def_disp_data import disp_five_data
+
 
 def user_regist(req):
     if req.method == "POST":
@@ -18,7 +23,8 @@ def user_regist(req):
                 return redirect('/login/')
     else:
         uf = UserRegistForm()
-    return render(req, 'regist.html', {'uf':uf})
+    return render(req, 'regist.html', {'uf': uf})
+
 
 def user_login(req):
     if req.method == "POST":
@@ -30,15 +36,17 @@ def user_login(req):
             if user:
                 login(req, user)
                 return redirect('/')
-            else :
+            else:
                 return redirect('/login/')
-    else :
+    else:
         lf = UserLoginForm()
-    return render(req, 'login.html', {'lf':lf})
+    return render(req, 'login.html', {'lf': lf})
+
 
 def user_logout(req):
     logout(req)
     return redirect('/')
+
 
 def index(req):
     user_data = disp_five_data()
@@ -60,8 +68,7 @@ def index(req):
             user_data = user.url_set.all().order_by('-visit_time')
     return render(req, 'index.html', {'user_data': user_data})
 
+
 def turn(req, short_hash):
     full_long_url = short_to_long(short_hash)
     return redirect(full_long_url)
-
-
