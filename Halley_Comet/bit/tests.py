@@ -1,4 +1,7 @@
-#-*-coding:utf8-*-
+from django.test import TestCase
+
+# Create your tests here.
+# -*-coding:utf8-*-
 """
 This file demonstrates writing tests using the unittest module. These will pass
 when you run "manage.py test".
@@ -7,8 +10,9 @@ Replace this with more appropriate tests for your application.
 from django.test import TestCase
 from bit.models import Url
 from bit.def_url import short_to_long, long_to_short
-from django.utils import unittest
-from django.test.client import Client 
+import unittest
+from django.test.client import Client
+
 
 class Web_Test(unittest.TestCase):
     def setUp(self):
@@ -24,12 +28,13 @@ class Web_Test(unittest.TestCase):
 
     def test_login(self):
         self.client.login(username="liu", password="1")
-        
+
     def test_regist(self):
         response = self.client.post('/userregist/')
         self.assertEqual(response.status_code, 200)
-    
-class Url_Test(TestCase):            
+
+
+class Url_Test(TestCase):
     def setUp(self):
         '''
             创建数据对象
@@ -45,15 +50,15 @@ class Url_Test(TestCase):
         long_url3 = "http://www.baidu.com/s?wd=sfdg+&rsv_bp=0&ch=&tn=monline_5_dg&bar=&rsv_spt=3&ie=utf-8&rsv_sug3=3&rsv_sug=0&rsv_sug4=418&rsv_sug1=2&inputT=1047"
         self.assertEqual(len(long_to_short(long_url2)), 8)
         self.assertEqual(len(long_to_short(long_url3)), 8)
-    
+
     def test_long_to_short_again(self):
-        '''    
+        '''
             测试相同url的缩短；
             测试有无http对相同url的缩短没有影响
-        '''    
+        '''
         long_url = "http://tieba.baidu.com"
         long_url1 = "http://tieba.baidu.com"
-        long_url2 = "tieba.baidu.com"    
+        long_url2 = "tieba.baidu.com"
         long_url3 = "http://tieba.baidu.com/"
         long_url4 = "file:///root/Desktop/web"
         long_url5 = "192.168.1.104:8000/"
@@ -68,7 +73,7 @@ class Url_Test(TestCase):
         short_url = "aaaaaaab"
         short_url2 = "aaaaaaac"
         long_url = "http://tieba.baidu.com"
-        short_url3 = long_to_short(long_url) 
+        short_url3 = long_to_short(long_url)
         self.assertEqual(short_to_long(short_url), "http://www.baidu.com")
         self.assertEqual(short_to_long(short_url2), "http://www.google.com")
         self.assertEqual(short_to_long(short_url3), "http://tieba.baidu.com/")
